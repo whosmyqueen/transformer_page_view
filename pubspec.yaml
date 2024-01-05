@@ -5,7 +5,8 @@ author: JZoom <jzoom8112@gmail.com>
 homepage:  https://github.com/jzoom/transformer_page_view
 
 environment:
-  sdk: ">=2.0.0-dev.50.0 <3.0.0"
+  sdk: '>=3.2.3 <4.0.0'
+  flutter: '>=3.3.0'
 
 dependencies:
   flutter:
