@@ -192,7 +192,7 @@ class TransformerPageView extends StatefulWidget {
   /// Create a `transformed` widget base on the widget that has been passed to  the [PageTransformer.transform].
   /// See [TransformInfo]
   ///
-  final PageTransformer transformer;
+  final PageTransformer? transformer;
 
   /// Same as [PageView.scrollDirection]
   ///
@@ -259,7 +259,7 @@ class TransformerPageView extends StatefulWidget {
     this.pageSnapping = true,
     this.onPageChanged,
     this.controller,
-    required this.transformer,
+    this.transformer,
     required this.itemBuilder,
     this.pageController,
     required this.itemCount,
@@ -342,7 +342,7 @@ class _TransformerPageViewState extends State<TransformerPageView> {
   ///This value will not change until user end drag.
   late int _fromIndex;
 
-  late PageTransformer _transformer;
+  late PageTransformer? _transformer;
 
   late TransformerPageController? _pageController;
 
@@ -372,7 +372,7 @@ class _TransformerPageViewState extends State<TransformerPageView> {
 
           double page = _pageController!.realPage;
 
-          if (_transformer.reverse) {
+          if (_transformer?.reverse == true) {
             position = page - index;
           } else {
             position = index - page;
@@ -391,7 +391,7 @@ class _TransformerPageViewState extends State<TransformerPageView> {
               done: _done,
               scrollDirection: widget.scrollDirection,
               viewportFraction: widget.viewportFraction);
-          return _transformer.transform(child, info);
+          return _transformer!.transform(child, info);
         });
   }
 
@@ -483,8 +483,9 @@ class _TransformerPageViewState extends State<TransformerPageView> {
           initialPage: widget.index!,
           itemCount: widget.itemCount,
           loop: widget.loop,
-          reverse:
-              widget.transformer == null ? false : widget.transformer.reverse);
+          reverse: widget.transformer == null
+              ? false
+              : widget.transformer?.reverse == true);
     }
     // int initPage = _getRealIndexFromRenderIndex(index);
     // _pageController = new PageController(initialPage: initPage,viewportFraction: widget.viewportFraction);
@@ -513,7 +514,7 @@ class _TransformerPageViewState extends State<TransformerPageView> {
             loop: widget.loop,
             reverse: widget.transformer == null
                 ? false
-                : widget.transformer.reverse);
+                : widget.transformer?.reverse == true);
       }
     }
 
